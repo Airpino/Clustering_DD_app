@@ -13,7 +13,8 @@ This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook showing an applic
 
 For installing and loading the package in your environment launch the following code:
 
-```{r install_and_load, message=FALSE, warning=FALSE}
+
+```r
 ## if not installed in your environment
 #  install.packages("HistDAWass")
 library(HistDAWass) #load the package
@@ -35,26 +36,19 @@ Given the distribution of \emph{temperature} ($X_{1}$) (degrees Celsius), the di
 
 We collected the histograms of the values of each site observed for the four variables. The histograms were constructed using 100 equi-frequent bins, namely, we have bins of different widths but of constant frequency. The histogram representation of varying bin-width histograms in not always pleasant, we plot the data using only ten equi-frequent bins. We show the first 5 of 78 sites.
 
-```{r include=FALSE}
-n<-get.MatH.nrows(OzoneFull)
-p<-get.MatH.ncols(OzoneFull)
-New_OZ<-OzoneFull
-for (i in 1:n){
-  for (j in 1:p){
-    New_OZ@M[i,j][[1]]@x<-New_OZ@M[i,j][[1]]@x[seq(1,101,by=10)]
-    New_OZ@M[i,j][[1]]@p<-New_OZ@M[i,j][[1]]@p[seq(1,101,by=10)]
-  }
-}
 
-```
 
-```{r message=FALSE, warning=FALSE}
+
+```r
 plot(New_OZ[1:10,])+theme_bw()+xlab("")+ylab("")+theme(legend.position = "none")
 ```
 
+![](Regression_application_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
+
 Each cell of the data table contains a histogram. We see the first three rows of the matrix
 
-```{r}
+
+```r
 els<-list()
 cc<-0
 for (i in 1:3){
@@ -81,17 +75,36 @@ fin_t<-tibble(ST_ID=c("I1","I2","I3"),
               V3=els[c(3,7,11)],
               V4=els[c(4,8,12)])
 fin_t
+```
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":["ST_ID"],"name":[1],"type":["chr"],"align":["left"]},{"label":["V1"],"name":[2],"type":["list"],"align":["right"]},{"label":["V2"],"name":[3],"type":["list"],"align":["right"]},{"label":["V3"],"name":[4],"type":["list"],"align":["right"]},{"label":["V4"],"name":[5],"type":["list"],"align":["right"]}],"data":[{"1":"I1","2":"<tibble>","3":"<tibble>","4":"<tibble>","5":"<tibble>"},{"1":"I2","2":"<tibble>","3":"<tibble>","4":"<tibble>","5":"<tibble>"},{"1":"I3","2":"<tibble>","3":"<tibble>","4":"<tibble>","5":"<tibble>"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+
+```r
 xtable::xtable(unnest(fin_t))
 ```
+
+```
+## Warning: `cols` is now required when using unnest().
+## Please use `cols = c(V1, V2, V3, V4)`
+```
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":["ST_ID"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Bin"],"name":[2],"type":["chr"],"align":["left"]},{"label":["p"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Bin1"],"name":[4],"type":["chr"],"align":["left"]},{"label":["p1"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["Bin2"],"name":[6],"type":["chr"],"align":["left"]},{"label":["p2"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["Bin3"],"name":[8],"type":["chr"],"align":["left"]},{"label":["p3"],"name":[9],"type":["dbl"],"align":["right"]}],"data":[{"1":"I1","2":"8.77-16.62","3":"0.01","4":"8.45-11.65","5":"0.01","6":"25.29- 75.88","7":"0.01","8":"0.10-0.35","9":"0.01"},{"1":"I1","2":"16.62-17.54","3":"0.01","4":"11.65-13.06","5":"0.01","6":"75.88-108.27","7":"0.01","8":"0.35-0.41","9":"0.01"},{"1":"I1","2":"17.54-18.42","3":"0.01","4":"13.06-13.83","5":"0.01","6":"108.27-111.43","7":"0.01","8":"0.41-0.50","9":"0.01"},{"1":"I1","2":"18.42-18.90","3":"0.01","4":"13.83-14.12","5":"0.01","6":"111.43-114.09","7":"0.01","8":"0.50-0.55","9":"0.01"},{"1":"I1","2":"...-...","3":"0.01","4":"...-...","5":"0.01","6":"...-...","7":"0.01","8":"...-...","9":"0.01"},{"1":"I1","2":"65.68-67.78","3":"0.01","4":"28.87-29.23","5":"0.01","6":"914.12-933.30","7":"0.01","8":"3.52-3.79","9":"0.01"},{"1":"I1","2":"67.78-89.60","3":"0.01","4":"29.23-30.18","5":"0.01","6":"933.30-942.00","7":"0.01","8":"3.79-4.48","9":"0.01"},{"1":"I2","2":"9.00-15.00","3":"0.01","4":"9.50- 9.75","5":"0.01","6":"49.00- 56.16","7":"0.01","8":"0.10-0.55","9":"0.01"},{"1":"I2","2":"15.00-17.00","3":"0.01","4":"9.75-10.38","5":"0.01","6":"56.16- 71.50","7":"0.01","8":"0.55-0.80","9":"0.01"},{"1":"I2","2":"17.00-18.00","3":"0.01","4":"10.38-10.60","5":"0.01","6":"71.50-102.84","7":"0.01","8":"0.80-0.80","9":"0.01"},{"1":"I2","2":"18.00-19.00","3":"0.01","4":"10.60-11.24","5":"0.01","6":"102.84-133.40","7":"0.01","8":"0.80-0.90","9":"0.01"},{"1":"I2","2":"...-...","3":"0.01","4":"...-...","5":"0.01","6":"...-...","7":"0.01","8":"...-...","9":"0.01"},{"1":"I2","2":"54.24-58.00","3":"0.01","4":"29.02-29.60","5":"0.01","6":"910.00-916.84","7":"0.01","8":"7.52-8.37","9":"0.01"},{"1":"I2","2":"58.00-63.00","3":"0.01","4":"29.60-30.70","5":"0.01","6":"916.84-944.00","7":"0.01","8":"8.37-9.60","9":"0.01"},{"1":"I3","2":"9.25-17.99","3":"0.01","4":"17.57-20.13","5":"0.01","6":"52.57- 78.67","7":"0.01","8":"0.08-0.26","9":"0.01"},{"1":"I3","2":"17.99-20.31","3":"0.01","4":"20.13-20.63","5":"0.01","6":"78.67-105.48","7":"0.01","8":"0.26-0.38","9":"0.01"},{"1":"I3","2":"20.31-21.41","3":"0.01","4":"20.63-21.13","5":"0.01","6":"105.48-116.96","7":"0.01","8":"0.38-0.41","9":"0.01"},{"1":"I3","2":"21.41-22.20","3":"0.01","4":"21.13-21.61","5":"0.01","6":"116.96-140.19","7":"0.01","8":"0.41-0.45","9":"0.01"},{"1":"I3","2":"...-...","3":"0.01","4":"...-...","5":"0.01","6":"...-...","7":"0.01","8":"...-...","9":"0.01"},{"1":"I3","2":"62.38-64.11","3":"0.01","4":"36.10-36.42","5":"0.01","6":"979.18- 990.02","7":"0.01","8":"3.77-4.07","9":"0.01"},{"1":"I3","2":"64.11-69.45","3":"0.01","4":"36.42-37.07","5":"0.01","6":"990.02-1020.00","7":"0.01","8":"4.07-4.81","9":"0.01"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ## Basic Wasserstein-based statistics
 
 ### The Frechét mean distributions of the the four variables
 
-```{r barycenters}
 
+```r
 Oz_bar<-OzoneFull[,1]
-
 ```
 
 The barycenters of each histogram variable are shown at the bottom of figure (the mean histogram according to \citep{Irpino20081648}).
