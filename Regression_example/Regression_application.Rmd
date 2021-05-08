@@ -54,7 +54,7 @@ for (i in 1:n){
 
 ```
 
-```{r HIST_MAT_PLOT, echo=TRUE, message=FALSE, warning=FALSE,dpi=72}
+```{r HIST_MAT_PLOT, echo=TRUE, message=FALSE, warning=FALSE}
 plot(New_OZ[1:10,])+theme_bw()+xlab("")+ylab("")+theme(legend.position = "none")
 ```
 
@@ -87,7 +87,7 @@ fin_t<-tibble(ST_ID=c("I1","I2","I3"),
               V3=els[c(3,7,11)],
               V4=els[c(4,8,12)])
 #xtable::xtable(unnest(fin_t)) for latex
-unnest(fin_t)
+knitr::kable(unnest(fin_t))
 ```
 
 ## Basic Wasserstein-based statistics
@@ -175,7 +175,7 @@ FR_means_stats<-tibble(
   Kurtosis=round(kur,3)
 )
 
-FR_means_stats
+knitr::kable(FR_means_stats,caption = "Basic statistics of barycenters")
 ```
 
 We show the covariances and correlations of the variables in the next two tables, and the standard deviations of the variables computed according to what is proposed in [@IrpVer2015] :
