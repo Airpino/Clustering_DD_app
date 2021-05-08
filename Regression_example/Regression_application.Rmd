@@ -31,7 +31,7 @@ The `OzoneFull` dataset is a `MatH` object, namely, a table of histogram-valued 
 
 We selected data on the ozone concentration in 78 USA sites among those depicted in Fig. \@ref(fig:map) for which the monitored data were complete (i.e., without missing values for each of the selected characteristics).
 
-```{r map, echo=FALSE, fig.cap="CASTNET network sites map", out.width = '60%'}
+```{r map, echo=FALSE, fig.cap="CASTNET network sites map", out.width = '40%'}
 knitr::include_graphics("Images/site_map_ozone.png")
 ```
 
@@ -54,7 +54,7 @@ for (i in 1:n){
 
 ```
 
-```{r HIST_MAT_PLOT, echo=TRUE, message=FALSE, warning=FALSE}
+```{r HIST_MAT_PLOT, echo=TRUE, message=FALSE, warning=FALSE,dpi=72}
 plot(New_OZ[1:10,])+theme_bw()+xlab("")+ylab("")+theme(legend.position = "none")
 ```
 
@@ -319,7 +319,7 @@ res_pl
 
 ```{r}
 
-plo_hist<-ggplotly(ggplot(MyL_st,aes(x=as.factor(Q),y=val,color=ID))+geom_boxplot())
+plo_hist<-ggplot(MyL_st,aes(x=as.factor(Q),y=val,color=ID))+geom_boxplot()
 plo_hist
 ```
 
