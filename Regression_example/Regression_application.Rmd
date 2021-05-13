@@ -9,7 +9,7 @@ bibliography: Biblio.bib
 link-citations: yes
 ---
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook showing an application of the two-components regression model on the `OzoneFull` dataset which is available in the `HistDAWass` package. We used the `HistDAWass` package and the therein build functions for the regression analysis.
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook showing an application of the two-components regression model [@Irp_reg_15] on the `OzoneFull` dataset which is available in the `HistDAWass` package. We used the `HistDAWass` package and the therein build functions for the regression analysis.
 
 # Install and load the package
 
