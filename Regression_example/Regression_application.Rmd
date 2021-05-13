@@ -300,7 +300,7 @@ MyL_st<-Res_st %>% pivot_longer(-ID,names_to = "var",values_to = "val")%>% mutat
 #### Plot of standardized residual functions
 
 ```{r}
-res_pl<-ggplotly(
+res_pl<-#ggplotly(
   ggplot(MyL_st,aes(x=Q,y=val,color=as.factor(ID)))+
     geom_line(aes(group=as.factor(ID)),alpha=0.4)+
     geom_line(inherit.aes = FALSE,
@@ -309,9 +309,9 @@ res_pl<-ggplotly(
               data=MyL_st %>% filter(ID%in%c(22,37,63)) ,
               aes(x=Q,y=val,group=as.factor(ID)),
               linetype = 2,color="black")+
-    xlab("prob")+ylab("standardized residuals")+
+    xlab("t")+ylab("Standardized residuals")+
     theme_bw()
-    )
+    #)
 
 res_pl
 
@@ -332,6 +332,41 @@ We note that stations $I23$, $I41$, and $I69$ present error functions which have
 ```{r}
 HistDAWass::plotPredVsObs(expected[c(22,61,37,66,63,73),],OzoneFull[c(22,61,37,66,63,73),1],type="DENS")
 
+```
+
+### Pointwise testing for normality (a tentative)
+
+We compute the Shapiro test for each percentile with and without outliers.
+
+```{r}
+full<-numeric()
+red<-numeric()
+for (i in 2:102){
+  full<-c(full,shapiro.test(Res[,i])$p.value)
+  red<-c(red,shapiro.test(Res[-c(22,37,63),i])$p.value)
+}
+p1<-ggplot(data.frame(p=round(c(0:100)/100,2),full=full),aes(x=p,y=full))+geom_point()+geom_hline(yintercept=0.05)+ggtitle("pvalues of Shapiro test for each percentile, all the data")
+p2<-ggplot(data.frame(p=round(c(0:100)/100,2),red=red),aes(x=p,y=red))+geom_point()+geom_hline(yintercept=0.05)+ggtitle("pvalues of Shapiro test for each percentile, after removing the three outliers")
+p1
+p2
+
+```
+
+It seems that removing the ouliers the process is almost Gaussian after $p=0.07$.
+
+### Best and worst predictions
+
+```{r, caption="Worst and best predictions"}
+tmp_e<-expected[c(22,61,37,66,63,73),]
+tmp_o<-OzoneFull[c(22,61,37,66,63,73),1]
+
+for (i in 1:6){
+   tmp_e@M[i,1][[1]]@x<-tmp_e@M[i,1][[1]]@x[seq(1,101,by=10)]
+    tmp_e@M[i,1][[1]]@p<-tmp_e@M[i,1][[1]]@p[seq(1,101,by=10)]
+       tmp_o@M[i,1][[1]]@x<-tmp_o@M[i,1][[1]]@x[seq(1,101,by=10)]
+    tmp_o@M[i,1][[1]]@p<-tmp_o@M[i,1][[1]]@p[seq(1,101,by=10)]
+}
+HistDAWass::plotPredVsObs(tmp_e,tmp_o)
 ```
 
 # References
