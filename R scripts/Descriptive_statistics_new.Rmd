@@ -1,0 +1,71 @@
+---
+title: "Descriptive statistics for distributional variables"
+author: "A. Irpino"
+output:
+  html_document:
+    df_print: paged
+---
+
+
+
+```{r init, message=FALSE, warning=FALSE}
+library(HistDAWass)
+library(tidyverse)
+library(latex2exp)
+library(AER)
+source('Useful_funs.R')
+```
+
+
+```{r}
+data("CPSSW9204")
+dd<-CPSSW9204
+dd<-dd %>% mutate(S_A=paste(substring(gender, 1, 1),age,sep="-"),
+                  Y_type=paste(sub("(.)", "\\U\\1", degree, perl=TRUE),
+                               year,sep="-"))
+dd$S_A<-factor(dd$S_A)
+dd<-dd %>% arrange(S_A)
+#dd$earnings<-log10(dd$earnings)
+tt<-from_LONG_to_WIDE_MH(dd,val_from = 2,rows_labs = 6,vars_from = 7)
+show(plot(tt)+theme(axis.text.x = element_text(size=10),axis.text.y = element_text(size=12),strip.text.x=element_text(size=12)))
+show(plot(tt,type="DENS"))
+```
+
+
+```{r}
+data<-tt
+ROUND<-TRUE
+pos1<-2
+pos2<-2
+source('Descriptive_statistics.R')
+show(plot(MEA)+scale_y_discrete(labels=c('M_L'=parse(text = TeX('$M_L$')),'M_W'=parse(text = TeX('$M_W$'))))+theme(axis.text.x = element_text(size=10),axis.text.y = element_text(size=12),strip.text.x=element_text(size=12)))
+show(plot(MEA,type="DENS"))
+show(round(t(bb),3))
+show(round(WH.correlation(tt),3))
+show(round(cor(get.MatH.stats(tt)$mat),3))
+show(round(WH.correlation(tt),3)-round(cor(get.MatH.stats(tt)$mat),3))
+```
+
+```{r}
+CV<-WH.var.covar(tt)
+ctab<-get.MatH.stats(tt)$mat
+CVc<-cov(ctab)*(get.MatH.nrows(tt)-1)/get.MatH.nrows(tt)
+CVv<-CV-CVc
+show(CV)
+show(CVc)
+show(CVv)
+show(diag(CVc)/diag(CV)*100)
+
+VAR_mat<-rbind(Total=diag(CV),Center=diag(CVc),Variab=diag(CVv),per_c=diag(CVc)/diag(CV)*100,std=sqrt(diag(CV)))
+show(VAR_mat)
+
+CORRc<-cor(ctab)
+CORRt<-WH.correlation(tt)
+CORR_c<-CVc/(t(t(diag(sqrt(CV))))%*%(t(diag(sqrt(CV)))))
+CORR_v<-CVv/(t(t(diag(sqrt(CV))))%*%(t(diag(sqrt(CV)))))
+show (CORRc)
+show (CORRt)
+show (CORR_c)
+show (CORR_v)
+```
+
