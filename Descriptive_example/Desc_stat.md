@@ -33,13 +33,13 @@ tt<-from_LONG_to_WIDE_MH(dd,val_from = 2,rows_labs = 6,vars_from = 7)
 show(plot(tt)+theme(axis.text.x = element_text(size=10),axis.text.y = element_text(size=12),strip.text.x=element_text(size=12)))
 ```
 
-![](Descriptive_statistics_new_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
+![](Desc_stat_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
 
 ```r
 show(plot(tt,type="DENS"))
 ```
 
-![](Descriptive_statistics_new_files/figure-html/unnamed-chunk-1-2.png)<!-- -->
+![](Desc_stat_files/figure-html/unnamed-chunk-1-2.png)<!-- -->
 
 
 
@@ -52,13 +52,13 @@ source('../Rscripts/Descriptive_statistics.R')
 show(plot(MEA)+scale_y_discrete(labels=c('M_L'=parse(text = TeX('$M_L$')),'M_W'=parse(text = TeX('$M_W$'))))+theme(axis.text.x = element_text(size=10),axis.text.y = element_text(size=12),strip.text.x=element_text(size=12)))
 ```
 
-![](Descriptive_statistics_new_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
+![](Desc_stat_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
 
 ```r
 show(plot(MEA,type="DENS"))
 ```
 
-![](Descriptive_statistics_new_files/figure-html/unnamed-chunk-2-2.png)<!-- -->
+![](Desc_stat_files/figure-html/unnamed-chunk-2-2.png)<!-- -->
 
 ```r
 show(round(t(bb),3))
