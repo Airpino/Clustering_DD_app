@@ -1,9 +1,10 @@
 ---
-title: "Descriptive statistics for distributional variables"
+title: "Descriptive statistics for distributional variables, and application on CPS data"
 author: "A. Irpino"
 output:
   html_document:
     df_print: paged
+    keep_md: true
 ---
 
 
@@ -17,7 +18,7 @@ source('Useful_funs.R')
 ```
 
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 data("CPSSW9204")
 dd<-CPSSW9204
 dd<-dd %>% mutate(S_A=paste(substring(gender, 1, 1),age,sep="-"),
@@ -32,7 +33,7 @@ show(plot(tt,type="DENS"))
 ```
 
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 data<-tt
 ROUND<-TRUE
 pos1<-2
@@ -46,7 +47,7 @@ show(round(cor(get.MatH.stats(tt)$mat),3))
 show(round(WH.correlation(tt),3)-round(cor(get.MatH.stats(tt)$mat),3))
 ```
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 CV<-WH.var.covar(tt)
 ctab<-get.MatH.stats(tt)$mat
 CVc<-cov(ctab)*(get.MatH.nrows(tt)-1)/get.MatH.nrows(tt)
