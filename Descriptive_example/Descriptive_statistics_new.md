@@ -15,7 +15,7 @@ library(HistDAWass)
 library(tidyverse)
 library(latex2exp)
 library(AER)
-source('Useful_funs.R')
+source('../Rscripts/Useful_funs.R')
 ```
 
 
@@ -48,7 +48,7 @@ data<-tt
 ROUND<-TRUE
 pos1<-2
 pos2<-2
-source('Descriptive_statistics.R')
+source('../Rscripts/Descriptive_statistics.R')
 show(plot(MEA)+scale_y_discrete(labels=c('M_L'=parse(text = TeX('$M_L$')),'M_W'=parse(text = TeX('$M_W$'))))+theme(axis.text.x = element_text(size=10),axis.text.y = element_text(size=12),strip.text.x=element_text(size=12)))
 ```
 
