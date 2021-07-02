@@ -377,7 +377,7 @@ GOFS
 ##   -0.1142704
 ```
 
-## Parametric bootstrap confidence intervals for the model
+## Bootstrap confidence intervals for the model parameters
 
 We perform a bootstrap estimates of the confidence intervals of the parameters using 1,000 replications
 
@@ -428,7 +428,7 @@ Table: Bootstrap results
 
 From the goodness-of-fit measures of the full model, we can conclude that the model has .....
 
-We performed a parametric bootstrap estimate of the model.
+We performed a bootstrap estimate of the model.
 
 Reading the bootstrap results, we may assert that the ozone concentration distribution of a site depends on the mean \emph{solar
 radiation}, where for each $\Delta Watt/m^{2}$ a $0.070\;(ppb)$ variation of the \emph{ozone concentration} mean level is expected, while in general we cannot say that the mean levels of \emph{temperature} and \emph{wind
